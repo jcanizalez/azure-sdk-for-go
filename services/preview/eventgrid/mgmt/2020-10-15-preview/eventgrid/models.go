@@ -6669,6 +6669,9 @@ func (st SystemTopic) MarshalJSON() ([]byte, error) {
 	if st.Location != nil {
 		objectMap["location"] = st.Location
 	}
+	if st.Identity != nil {
+		objectMap["identity"] = st.Identity
+	}
 	if st.Tags != nil {
 		objectMap["tags"] = st.Tags
 	}
@@ -6692,6 +6695,15 @@ func (st *SystemTopic) UnmarshalJSON(body []byte) error {
 					return err
 				}
 				st.SystemTopicProperties = &systemTopicProperties
+			}
+		case "identity":
+			if v != nil {
+				var identity SystemTopicIdentity
+				err = json.Unmarshal(*v, &identity)
+				if err != nil {
+					return err
+				}
+				st.Identity = &identity
 			}
 		case "location":
 			if v != nil {
